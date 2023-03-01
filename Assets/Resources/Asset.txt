@@ -1,0 +1,59 @@
+{
+  "intents": [
+    {
+      "intent": "Greeting",
+      "text": [
+        "Hi",
+        "Hi there",
+        "Hola",
+        "Hello",
+        "Hello there",
+        "Hya",
+        "Hya there"
+      ]
+    },
+    {
+      "intent": "NameQuery",
+      "text": [
+        "What is your name?",
+        "What could I call you?",
+        "What can I call you?",
+        "What do your friends call you?",
+        "Who are you?",
+        "Tell me your name?"
+      ]
+    },
+    {
+      "intent": "TimeQuery",
+      "text": [
+        "What is the time?",
+        "What's the time?",
+        "Do you know what time it is?",
+        "Do you know the time?",
+        "Can you tell me the time?",
+        "Tell me what time it is?",
+        "Time"
+      ]
+    },
+    {
+      "intent": "InteractQuery",
+      "text": [
+        "You can interact with the item.",
+        "The piano can be turned on.",
+        "The torch can be turned on.",
+        "The item can be turned on.",
+        "Can be turned on",
+        "Turned on"
+      ]
+    },
+    {
+      "intent": "GrabbableQuery",
+      "text": [
+        "You can take item.",
+        "You can take the book.",
+        "You can grab item.",
+        "You can take"
+      ]
+    }
+  ]
+}

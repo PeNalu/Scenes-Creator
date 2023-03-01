@@ -1,0 +1,36 @@
+﻿CC | coordinating conjunction | координирующее соединение
+CD | cardinal digit | кардинальная цифра
+DT | determiner | определитель
+EX | existential there | экзистенциальный там
+FW | foreign word | иностранное слово
+IN | preposition/subordinating conjunction | предлог/подчинительный союз
+JJ | adjective | прилагательное 
+JJR | adjective comparative | прилагательное сравнительное 
+JJS | adjective superlative | прилагательное в превосходной степени 
+LS | list marker | маркер списка
+MD | modal could | модальный глагол
+NN | noun, singular | существительное в единственном числе
+NNS | noun plural | существительное во множественном числе
+NNP | proper noun, singular | имя собственное в единственном числе
+NNPS | proper noun, plural | имя собственное во множественном числе
+PDT | predeterminer | предопределитель
+POS | possessive ending | притяжательное окончание
+PRP | personal pronoun | личное местоимение
+PRP$ | possessive pronoun | притяжательное местоимение
+RB | adverb | наречие
+RBR | adverb, comparative | сравнительное наречие
+RBS | adverb, superlative | наречие в превосходной степени
+RP | particle give up | частица
+TO | to | к
+UH | interjection | междометие
+VB | verb, base form take | базовая форма глагола
+VBD | verb, past tense took | глагол прошедшего времени
+VBG | verb, gerund/present participle taking | глагол, герундий/причастие настоящего времени
+VBN | verb, past participle taken | глагол прошедшего времени
+VBP | verb, sing. present, non-3d take | глагол...
+VBZ | verb, 3rd person sing. present takes | глагол в третьем лице
+WDT | wh-determiner which | wh-определитель...
+WP | wh-pronoun who, what | wh-местоимение
+WP$ | possessive wh-pronoun whose | wh-притяжательное местоимение...
+WRB | wh-abverb where, when | wh-наречие
+. | point | точка
