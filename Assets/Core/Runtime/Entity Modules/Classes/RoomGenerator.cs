@@ -41,6 +41,11 @@ public class RoomGenerator : MonoBehaviour
         GenerateRoom(parser.Parse(roomDescription));
     }
 
+    public List<TextEntity> GetTextEntities(string roomDescription)
+    {
+        return parser.Parse(roomDescription);
+    }
+
     public void GenerateRoom(List<TextEntity> textEntities)
     {
         toRemove = new List<Entity>();
