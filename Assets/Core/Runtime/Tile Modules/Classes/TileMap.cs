@@ -5,6 +5,7 @@ using UnityEngine;
 public class TileMap : MonoBehaviour
 {
     //Stored required properties.
+    [SerializeField]
     private Dictionary<Vector2Int, Tile> tileMap;
 
     private void Awake()
@@ -23,7 +24,25 @@ public class TileMap : MonoBehaviour
         tile.Initialize(this, pos);
     }
 
+    private void OnDrawGizmos()
+    {
+/*        Gizmos.color = Color.blue;
+
+        foreach (KeyValuePair<Vector2Int, Tile> item in tileMap)
+        {
+            if (item.Value.GetTileType() == TileType.Floor)
+            {
+                Gizmos.DrawSphere(new Vector3(item.Key.x, transform.position.y, item.Key.y), 0.1f);
+            }
+        }*/
+    }
+
     #region [Getter / Setter]
+    public Tile GetTile(Vector2Int pos)
+    {
+        return tileMap[pos];
+    }
+
     public bool HasNeighborsType(Vector2Int pos, TileType type)
     {
         List<Tile> tiles = GetNeighborsByType(pos, type);

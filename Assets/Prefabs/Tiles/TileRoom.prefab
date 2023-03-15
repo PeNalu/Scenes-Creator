@@ -47,7 +47,32 @@ MonoBehaviour:
   floorTile: {fileID: 338021735967105035, guid: da912cd1e5701b54f8d389da4a19243c, type: 3}
   wallTile: {fileID: 7592060522299019130, guid: f79ac6c9782399248952fdf5c0e864dc, type: 3}
   doorTile: {fileID: 7592060522299019130, guid: b260a06cd1a83344a838c7da1240a4f2, type: 3}
+  templates:
+  - {fileID: 2949906603065611164, guid: 9ade0ad86d49e444584841a01ebb5842, type: 3}
+  - {fileID: 7681421977014182780, guid: 2f1256a98da01364ea15bbe2b3063223, type: 3}
+  - {fileID: 7681421977014182780, guid: 00a8674c33a98b5468358739778692f0, type: 3}
+  - {fileID: 7681421977014182780, guid: 5bbc52381db78e4418425d3eaf5b933a, type: 3}
+  - {fileID: 7029385366227179420, guid: be0583d70685f464096ee0c5d17013cb, type: 3}
+  - {fileID: 2902109780194759808, guid: 182b6edad2699dc43a283b4a8be64618, type: 3}
+  - {fileID: 9110814703214720360, guid: 9dba6a0ac5c3b974799513a466208895, type: 3}
+  - {fileID: 4248165739837931660, guid: 08074fb05ceefe741a8d000d3cd9d093, type: 3}
+  - {fileID: 2898947039054369541, guid: 426ad7a198c545a4a990401b000392ed, type: 3}
+  - {fileID: 6183626506179235656, guid: 84952dbb4918cd54dbbe5a768280eca6, type: 3}
+  - {fileID: 3409814269259708911, guid: dd916a03b50f97b4c964db1b0fd14d0e, type: 3}
+  - {fileID: 3537835027537453948, guid: b4a76bb702aa1ee4db949e54b75eda1d, type: 3}
+  - {fileID: 1918705635999389796, guid: 2dd537b3b1918604bbcc19b22d109fe1, type: 3}
+  - {fileID: 1857859854725115479, guid: c120b38b625a0dd4cb9a52f813b1d732, type: 3}
+  - {fileID: 5406745391814904569, guid: ca3005b0e28722646804d22e9c8e6e6a, type: 3}
+  - {fileID: 5406745391814904569, guid: 77c4611afda59cc42ad12eba1818abe2, type: 3}
+  - {fileID: 5406745391814904569, guid: 01ba9c93db9ee8b4681a45ca3532b871, type: 3}
+  stopEntities:
+  - room
+  - wall
+  rayPos: []
   minRoomHeight: 5
   maxRoomHeight: 7
   maxRoomWidth: 7
   mixRoomWidth: 5
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 1

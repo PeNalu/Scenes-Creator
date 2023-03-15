@@ -70,6 +70,11 @@ public partial class ApartmentGenerator : MonoBehaviour
         SetUpRooms(roomDescriptions);
         ConfigurateRoomsPosition();
 
+        foreach (TileRoom item in tileRooms)
+        {
+            item.Initialize(roomDatas[item.GetRoomName()]);
+        }
+
         roomsCreator.Clear();
         foreach (TileRoom item in tileRooms)
         {
@@ -89,6 +94,7 @@ public partial class ApartmentGenerator : MonoBehaviour
         RoomData firstRoom = roomDatas.First().Value;
         TileRoom newTileRoom = Instantiate(tileRoom);
         newTileRoom.Initialize(tileMap, Vector2Int.zero);
+        newTileRoom.SetRoomName(firstRoom.roomName);
         createdRooms.Add(firstRoom.roomName);
         roomsMap.Add(Vector2Int.zero, newTileRoom);
         firstRoom.tileRoom = newTileRoom;
@@ -107,6 +113,7 @@ public partial class ApartmentGenerator : MonoBehaviour
                         Vector2Int pos = GetRandomEmptySide(item.Value.tileRoom.GetMatrixPosition());
                         TileRoom tRoom = Instantiate(tileRoom);
                         tRoom.Initialize(tileMap, pos);
+                        tRoom.SetRoomName(conn.Key);
                         createdRooms.Add(item.Value.roomName);
                         roomsMap.Add(pos, tRoom);
                         tileRooms.Add(tRoom);

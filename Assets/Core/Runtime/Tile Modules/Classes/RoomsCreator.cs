@@ -33,6 +33,11 @@ public class RoomsCreator : MonoBehaviour
     [Button]
     public void StartCreate(Transform parent = null)
     {
+        StartCoroutine(CreateProcessing(parent));
+    }
+
+    private IEnumerator CreateProcessing(Transform parent = null)
+    {
         hallwayTiles = new List<Tile>();
         doorTiles = new List<Tile>();
         foreach (TileRoom room in tileRooms)
@@ -41,12 +46,7 @@ public class RoomsCreator : MonoBehaviour
         }
         OnFloorCreatedCallback?.Invoke();
 
-
         OnCreateHallway?.Invoke();
-/*        MakeHallway(tileRooms[0].GetCenterTile(), tileRooms[1].GetCenterTile());
-        MakeHallway(tileRooms[2].GetCenterTile(), tileRooms[3].GetCenterTile());
-        //MakeHallway(tileRooms[1].GetCenterTile(), tileRooms[2].GetCenterTile());
-        MakeHallway(tileRooms[0].GetCenterTile(), tileRooms[3].GetCenterTile());*/
 
         foreach (TileRoom room in tileRooms)
         {
@@ -97,6 +97,20 @@ public class RoomsCreator : MonoBehaviour
                 }
             }
         }
+
+        yield return null;
+
+        foreach (TileRoom tileRoom in tileRooms)
+        {
+            tileRoom.InitializeRoomEntities();
+        }
+
+        foreach (TileRoom tileRoom in tileRooms)
+        {
+            StartCoroutine(tileRoom.SetUpEntities());
+            //tileRoom.SetUpEntities();
+        }
+        print("End Create Room Entities");
     }
 
     public void MakeHallway(Tile start, Tile target, Transform parent = null)
