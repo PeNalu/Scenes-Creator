@@ -51,6 +51,7 @@ public class TileRoom : MonoBehaviour
     private RoomData roomData;
     private TileMap tileMap;
     private List<Entity> entities = new List<Entity>();
+    private DoorController doorController;
     private Vector2Int roomSize = Vector2Int.one;
     private GameObject roomObj;
     private GameObject zonesObj;
@@ -184,6 +185,7 @@ public class TileRoom : MonoBehaviour
         GameObject doorObj = Instantiate(doorTile);
         doorObj.transform.SetParent(transform);
         door.ChangeTileObject(doorObj);
+        doorController = doorObj.GetComponent<DoorController>();
     }
 
     public void InitializeRoomEntities()
@@ -292,6 +294,11 @@ public class TileRoom : MonoBehaviour
     }
 
     #region [Getter / Setter]
+    public DoorController GetDoorController()
+    {
+        return doorController;
+    }
+
     public Vector2Int GetPosition()
     {
         return new Vector2Int((int)transform.position.x, (int)transform.position.z);

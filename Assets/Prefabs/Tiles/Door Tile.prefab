@@ -93,7 +93,7 @@ BoxCollider:
   m_GameObject: {fileID: 4862662247178354438}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -107,6 +107,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5310240318396521627}
   - component: {fileID: 5011124774914796054}
+  - component: {fileID: 7986058635400142645}
+  - component: {fileID: 2603837328744808637}
   m_Layer: 0
   m_Name: Door Tile
   m_TagString: Untagged
@@ -143,3 +145,45 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 2.0024843, z: 1}
   m_Center: {x: 0, y: 0.90617615, z: 0}
+--- !u!114 &7986058635400142645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7592060522299019130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbf15b43bdae444419fbbde90b3350f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  point1: {x: 0, y: 0, z: 0}
+  point2: {x: 0, y: 0, z: 0}
+--- !u!114 &2603837328744808637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7592060522299019130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c938bdb578221c94daf91f76bf775593, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onInteract:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7986058635400142645}
+        m_TargetAssemblyTypeName: DoorController, Assembly-CSharp
+        m_MethodName: Teleport
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  isEnable: 1

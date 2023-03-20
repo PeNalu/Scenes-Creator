@@ -81,6 +81,12 @@ public partial class ApartmentGenerator : MonoBehaviour
             roomsCreator.AddRoom(item);
         }
         roomsCreator.StartCreate(transform);
+
+        foreach (Tile door in roomsCreator.GetDoors())
+        {
+            DoorController doorController = door.GetTileObject().GetComponent<DoorController>();
+            doorController.Initialize(tileMap, door.GetPosition());
+        }
     }
 
     private void ConfigurateRoomsPosition()

@@ -132,6 +132,7 @@ public class RoomsCreator : MonoBehaviour
                         gameObject.transform.SetParent(parent);
                     }
                     item.SetTileObject(gameObject);
+                    item.SetTileType(TileType.Door);
                     doorTiles.Add(item);
                 }
                 else
@@ -168,6 +169,11 @@ public class RoomsCreator : MonoBehaviour
     public void AddRoom(TileRoom tileRoom)
     {
         tileRooms.Add(tileRoom);
+    }
+
+    public List<Tile> GetDoors()
+    {
+        return doorTiles;
     }
     #endregion
 }
