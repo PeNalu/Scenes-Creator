@@ -201,7 +201,10 @@ public class EntityZone2
             for (int y = 0; y < size.y; y++)
             {
                 Vector2Int newPos = new Vector2Int(tile.x + x, tile.y + y);
-                if (!tileMap.TryGetTile(newPos, out Tile t) || t.GetTileType() != TileType.Floor || t.HasNeighborsType(TileType.Door) || t.GetTileContent() != null)
+                if (!tileMap.TryGetTile(newPos, out Tile t) 
+                    || t.GetTileType() != TileType.Floor 
+                    || t.HasNeighborsType(TileType.Door) 
+                    || t.GetTileContent() != null)
                 {
                     return true;
                 }

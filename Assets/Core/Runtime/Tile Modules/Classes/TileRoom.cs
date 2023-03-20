@@ -88,12 +88,31 @@ public class TileRoom : MonoBehaviour
         roomObj.transform.SetParent(transform);
         this.tileMap = tileMap;
         this.matrixPos = pos;
-        MakeSize();
     }
 
     public void MakeSize()
     {
         roomSize = new Vector2Int(Random.Range(minRoomHeight, maxRoomHeight), Random.Range(mixRoomWidth, maxRoomWidth));
+    }
+
+    public void CalculateSize()
+    {
+        int capacity = 0;
+        List<TextEntity> textEntities = roomData.textEntities;
+        foreach (TextEntity tEntity in textEntities)
+        {
+            List<Entity> entities = templates.Where(x => x.name.ToLower() == tEntity.name.ToLower()).ToList();
+            foreach (Entity item in entities)
+            {
+                capacity += item.GetSize().x * item.GetSize().y;
+            }
+        }
+        print(capacity);
+
+        capacity = capacity > 16 ? capacity : 16;
+
+        int side = (int)Mathf.Sqrt(capacity) + 1;
+        roomSize = new Vector2Int(side, side);
     }
 
     public void CreateWall()
