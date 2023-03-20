@@ -229,16 +229,16 @@ public class TileRoom : MonoBehaviour
 
                     Vector2Int parentPos = zone2.GetRandomPosition(tileMap, a.GetSize());
 
+ 
+
                     Vector3 targetPos = new Vector3(parentPos.x - 0.5f, tileMap.transform.position.y, parentPos.y - 0.5f);
                     if (textEntity.position == "on")
                     {
-                        print(1);
                         Vector3 origin = new Vector3(parentPos.x, tileMap.transform.position.y + 5f, parentPos.y);
                         Ray ray = new Ray(origin, Vector3.down);
                         rayPos.Add(origin);
                         if (Physics.Raycast(ray, out RaycastHit hitInfo, 10f))
                         {
-                            print(2);
                             targetPos = new Vector3(targetPos.x, hitInfo.point.y, targetPos.z);
                             hits.Add(hitInfo.point);
                         }
@@ -252,6 +252,12 @@ public class TileRoom : MonoBehaviour
                     a.transform.position = targetPos;
                     a.CalculateTiles(tileMap, parentPos);
                     a.CalculateZones(tileMap);
+
+                    List<Vector2Int> vectors = a.GetTiles();
+                    foreach (Vector2Int item in vectors)
+                    {
+                        tileMap.GetTile(item).SetTileContent(a.gameObject);
+                    }
 
                     yield return null;
                 }

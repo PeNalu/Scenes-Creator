@@ -7,6 +7,9 @@ public class Tile
     [SerializeField]
     private GameObject tileObject;
 
+    [SerializeField]
+    private GameObject tileContent;
+
     public float H;
     public float G;
 
@@ -89,6 +92,16 @@ public class Tile
     public void SetTileMap(TileMap tileMap)
     {
         this.tileMap = tileMap;
+    }
+
+    public void SetTileContent(GameObject gameObject)
+    {
+        tileContent = gameObject;
+    }
+
+    public GameObject GetTileContent()
+    {
+        return tileContent;
     }
 
     public Tile GetConnect()
