@@ -123,119 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &229006718
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 229006723}
-  - component: {fileID: 229006722}
-  - component: {fileID: 229006721}
-  - component: {fileID: 229006720}
-  - component: {fileID: 229006719}
-  m_Layer: 0
-  m_Name: Cube
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &229006719
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 229006718}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85be2dd35f6e26b479abd4a138db8f61, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 1
---- !u!65 &229006720
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 229006718}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!23 &229006721
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 229006718}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &229006722
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 229006718}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &229006723
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 229006718}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.234, y: 2.28, z: 5.867}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &303291578 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 555843267250667025, guid: 10d1176d018932f489be7b4358ea50e0, type: 3}
@@ -526,26 +413,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 372704341479e3a45a2a075c5e1d1cef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textToParse: "This is a kitchen. There is a table against the wall. There is a
-    chair next to the table. There is a torch on the table. There is a vase somewhere
-    in the room.\r\n\r\nThis is a living room. There is a table against the wall.
-    There is a chair next to the table. There is a book on the table. There is a
-    candle on the table. There is a bookshelf on the wall. There is a key on the
-    bookshelf. There is a piano somewhere in the room. \r\n\r\nThis is a cabinet.
-    There is a table against the wall. There is a chair next to the table. There
-    is a phone on the table. There is a clock on the table. There is a board against
-    the wall. \r\n\r\nThis is a bathroom. There is a typewriter somewhere in the
-    room. There is a candle somewhere in the room.\r\n\r\nThis is a loggia. There
-    is a table against the wall. There is a chair next to the table. There is a torch
-    on the table. There is a vase somewhere in the room.\r\n\r\nThis is a dining
-    room. There is a table against the wall. There is a chair next to the table.
-    There is a torch on the table. There is a vase somewhere in the room.\r\n\r\nThis
-    is a balcony. There is a table against the wall. There is a chair next to the
-    table. There is a torch on the table. There is a vase somewhere in the room.\r\n\r\nLiving
-    room and kitchen are connected. Living room and bathroom are connected.  Living
-    room and cabinet are connected by a corridor. Living room and loggia are connected
-    by a corridor. Cabinet and dining room are connected by a corridor. Cabinet and
-    balcony are connected by a corridor."
+  textAsset: {fileID: 4900000, guid: 7f32200d2c12c144aa373b9f0b837852, type: 3}
   roomName:
   - bedroom
   - kitchen
@@ -558,17 +426,12 @@ MonoBehaviour:
   connectedMark:
   - connected by a corridor
   - connected
-  roomGenerators: []
   sentenceSplitter: {fileID: 2049600232}
   parser: {fileID: 2049600229}
   roomGeneratorTemplate: {fileID: 2352346859634864068, guid: 744547e80ab49e8458dc20f85a11d9cc, type: 3}
-  doorTemplate: {fileID: 3369718212202997987, guid: f11a161088d5de9438f8f14ec1417a16, type: 3}
-  hallwayTemplate: {fileID: 5675165857187307308, guid: ea7af9902cfab7a4fb5f061486cf3965, type: 3}
   roomsCreator: {fileID: 1288059269}
   tileRoom: {fileID: 6545381358769220006, guid: 61be99cd665a0d2429b7c32147e318f8, type: 3}
   tileMap: {fileID: 1641214322}
-  roomDiameter: 10
-  hallwayLenght: 10
 --- !u!4 &1539268078
 Transform:
   m_ObjectHideFlags: 0
@@ -627,51 +490,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1723912671
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1723912673}
-  - component: {fileID: 1723912672}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &1723912672
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1723912671}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6628e6d4fc2abd54aa90c0de709a5171, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  size: {x: 2, y: 2}
---- !u!4 &1723912673
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1723912671}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1735455594
 GameObject:

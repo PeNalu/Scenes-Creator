@@ -21,8 +21,10 @@ public class Entity : TileObject
     //Stored required properties.
     private TextEntity textEntity;
 
-    public void CalculateZones(TileMap tileMap)
+    public void CalculateZones(TileMap tileMap, TileRoom room)
     {
+        HashSet<Vector2Int> roomTiles = room.GetRoomTiles();
+
         string name = gameObject.name;
         entityZone2s = new List<EntityZone2>();
 
@@ -33,20 +35,23 @@ public class Entity : TileObject
         List<Vector2Int> onTiles = new List<Vector2Int>();
         foreach (Vector2Int tilePos in GetTiles())
         {
-            Tile currentTile = tileMap.GetTile(tilePos);
-            if(currentTile.GetTileType() == TileType.Wall || currentTile.GetTileType() == TileType.Floor)
+            if (roomTiles.Contains(tilePos))
             {
-                List<Tile> nb = tileMap.GetNeighborsByType(tilePos, TileType.Floor);
-                foreach (Tile item in nb)
+                Tile currentTile = tileMap.GetTile(tilePos);
+                if (currentTile.GetTileType() == TileType.Wall || currentTile.GetTileType() == TileType.Floor)
                 {
-                    onTiles.Add(tilePos);
+                    List<Tile> nb = tileMap.GetNeighborsByType(tilePos, TileType.Floor);
+                    foreach (Tile item in nb)
+                    {
+                        onTiles.Add(tilePos);
+                    }
                 }
-            }
-            else
-            {
-                if (!tileMap.HasNeighborsType(tilePos, TileType.Wall))
+                else
                 {
-                    onTiles.Add(tilePos);
+                    if (!tileMap.HasNeighborsType(tilePos, TileType.Wall))
+                    {
+                        onTiles.Add(tilePos);
+                    }
                 }
             }
         }
@@ -65,9 +70,12 @@ public class Entity : TileObject
             List<Tile> nb = tileMap.GetNeighborsByType(tilePos, TileType.Floor);
             foreach (Tile item in nb)
             {
-                if (!GetTiles().Contains(item.GetPosition()))
+                if (roomTiles.Contains(item.GetPosition()))
                 {
-                    nTiles.Add(item.GetPosition());
+                    if (!GetTiles().Contains(item.GetPosition()))
+                    {
+                        nTiles.Add(item.GetPosition());
+                    }
                 }
             }
         }

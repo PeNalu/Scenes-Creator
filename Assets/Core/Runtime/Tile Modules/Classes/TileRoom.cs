@@ -28,38 +28,26 @@ public class TileRoom : MonoBehaviour
     private List<Vector3> hits;
 
     [SerializeField]
-    [Range(1, 20)]
-    private int minRoomHeight = 1;
-
-    [SerializeField]
-    [Range(1, 20)]
-    private int maxRoomHeight = 5;
-
-    [SerializeField]
-    [Range(1, 20)]
-    private int maxRoomWidth = 5;
-
-    [SerializeField]
-    [Range(1, 20)]
-    private int mixRoomWidth = 5;
-
-    [SerializeField]
     private LayerMask layerMask;
 
-    //Stored required properties.
-    private string roomName;
+    //Stored required components.
     private RoomData roomData;
     private TileMap tileMap;
-    private List<Entity> entities = new List<Entity>();
-    private DoorController doorController;
-    private Vector2Int roomSize = Vector2Int.one;
     private GameObject roomObj;
     private GameObject zonesObj;
+    private DoorController doorController;
+
+    //Stored required properties.
+    private List<Entity> entities = new List<Entity>();
+    private HashSet<Vector2Int> roomTiles;
+    private Vector2Int roomSize = Vector2Int.one;
     private Vector2Int matrixPos;
+    private string roomName;
     private int roomSpace = 1;
 
     public void Initialize(RoomData data)
     {
+        roomTiles = new HashSet<Vector2Int>();
         hits = new List<Vector3>();
         rayPos = new List<Vector3>();
         foreach (Entity item in templates)
@@ -70,29 +58,12 @@ public class TileRoom : MonoBehaviour
         roomData = data;
     }
 
-    private void Awake()
-    {
-        //zonesObj = new GameObject("Zones");
-        //zonesObj.transform.SetParent(transform);
-        //roomObj = new GameObject("Room");
-        ///roomObj.transform.SetParent(transform);
-
-        //CreatFloor();
-        //CreateWall();
-        //CreateDoor();
-    }
-
     public void Initialize(TileMap tileMap, Vector2Int pos)
     {
         roomObj = new GameObject("Room");
         roomObj.transform.SetParent(transform);
         this.tileMap = tileMap;
         this.matrixPos = pos;
-    }
-
-    public void MakeSize()
-    {
-        roomSize = new Vector2Int(Random.Range(minRoomHeight, maxRoomHeight), Random.Range(mixRoomWidth, maxRoomWidth));
     }
 
     public void CalculateSize()
@@ -107,10 +78,8 @@ public class TileRoom : MonoBehaviour
                 capacity += item.GetSize().x * item.GetSize().y;
             }
         }
-        print(capacity);
 
         capacity = capacity > 16 ? capacity : 16;
-
         int side = (int)Mathf.Sqrt(capacity) + 1;
         roomSize = new Vector2Int(side, side);
     }
@@ -143,6 +112,7 @@ public class TileRoom : MonoBehaviour
                         item.SetTileObject(wallObj);
                         item.SetTileType(TileType.Wall);
                         vectors.Add(item.GetPosition());
+                        roomTiles.Add(item.GetPosition());
                     }
                 }
             }
@@ -178,8 +148,47 @@ public class TileRoom : MonoBehaviour
                 tile.SetTileObject(floorObj);
                 tile.SetTileType(TileType.Floor);
                 vectors.Add(tile.GetPosition());
+                roomTiles.Add(tile.GetPosition());
             }
         }
+
+        /*for (int i = 0; i < roomSize.x; i++)
+        {
+            if(i < (int)(roomSize.x / 2))
+            {
+                for (int j = 0; j < roomSize.y; j++)
+                {
+                    Tile tile = new Tile();
+                    Vector2Int pos = new Vector2Int((int)transform.position.x + i, (int)transform.position.z + j);
+                    tileMap.CreateTile(pos, tile);
+
+                    GameObject floorObj = Instantiate(floorTile);
+                    floorObj.transform.SetParent(wallObjects.transform);
+                    tile.SetTileObject(floorObj);
+                    tile.SetTileType(TileType.Floor);
+                    vectors.Add(tile.GetPosition());
+                    roomTiles.Add(tile.GetPosition());
+                }
+            }
+            else
+            {
+                for (int j = 0; j < (int)(roomSize.y / 2) + 1; j++)
+                {
+                    int offset = (roomSize.y - ((int)(roomSize.y / 2) + 1)) / 2;
+
+                    Tile tile = new Tile();
+                    Vector2Int pos = new Vector2Int((int)transform.position.x + i, (int)transform.position.z + j + offset);
+                    tileMap.CreateTile(pos, tile);
+
+                    GameObject floorObj = Instantiate(floorTile);
+                    floorObj.transform.SetParent(wallObjects.transform);
+                    tile.SetTileObject(floorObj);
+                    tile.SetTileType(TileType.Floor);
+                    vectors.Add(tile.GetPosition());
+                    roomTiles.Add(tile.GetPosition());
+                }
+            }
+        }*/
 
         entity.SetTiles(vectors);
         entities.Add(entity);
@@ -211,7 +220,7 @@ public class TileRoom : MonoBehaviour
     {
         foreach (Entity entity in entities)
         {
-            entity.CalculateZones(tileMap);
+            entity.CalculateZones(tileMap, this);
         }
     }
 
@@ -222,8 +231,6 @@ public class TileRoom : MonoBehaviour
             if (stopEntities.Contains(tEntity.name)) continue;
 
             List<Entity> tmp = templates.Where(x => x.name == tEntity.name).ToList();
-            //Debug.Assert(tmp.Count == 0, $"You need add {tEntity.name} object in project!");
-
             Entity template = tmp[Random.Range(0, tmp.Count)];
             Entity entity = Instantiate(template);
             entity.transform.SetParent(transform);
@@ -235,7 +242,6 @@ public class TileRoom : MonoBehaviour
         foreach (TextEntity textEntity in roomData.textEntities)
         {
             if (stopEntities.Contains(textEntity.name)) continue;
-
             if (!string.IsNullOrEmpty(textEntity.parentObj))
             {
                 if (entities.Any(x => x.name.ToLower() == textEntity.parentObj.ToLower()))
@@ -243,13 +249,9 @@ public class TileRoom : MonoBehaviour
                     Entity a = entities.Where(x => x.name == textEntity.name).FirstOrDefault();
                     List<Entity> parentEntities = entities.Where(x => x.name.ToLower() == textEntity.parentObj).ToList();
                     Entity b = parentEntities[Random.Range(0, parentEntities.Count)];
-
                     EntityZone2 zone2 = b.GetZoneByTag(textEntity.position);
 
                     Vector2Int parentPos = zone2.GetRandomPosition(tileMap, a.GetSize());
-
- 
-
                     Vector3 targetPos = new Vector3(parentPos.x - 0.5f, tileMap.transform.position.y, parentPos.y - 0.5f);
                     if (textEntity.position == "on")
                     {
@@ -263,14 +265,9 @@ public class TileRoom : MonoBehaviour
                         }
                     }
 
-/*                    if(textEntity.name == "phone")
-                    {
-                        print($"{textEntity.name} {textEntity.parentObj} {textEntity.position}");
-                    }*/
-
                     a.transform.position = targetPos;
                     a.CalculateTiles(tileMap, parentPos);
-                    a.CalculateZones(tileMap);
+                    a.CalculateZones(tileMap, this);
 
                     List<Vector2Int> vectors = a.GetTiles();
                     foreach (Vector2Int item in vectors)
@@ -319,6 +316,11 @@ public class TileRoom : MonoBehaviour
     }
 
     #region [Getter / Setter]
+    public HashSet<Vector2Int> GetRoomTiles()
+    {
+        return roomTiles;
+    }
+    
     public DoorController GetDoorController()
     {
         return doorController;
