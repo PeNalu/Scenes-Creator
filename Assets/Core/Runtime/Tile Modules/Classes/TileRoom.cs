@@ -30,6 +30,9 @@ public class TileRoom : MonoBehaviour
     [SerializeField]
     private LayerMask layerMask;
 
+    [SerializeField]
+    private int minCapacity = 16;
+
     //Stored required components.
     private RoomData roomData;
     private TileMap tileMap;
@@ -79,7 +82,7 @@ public class TileRoom : MonoBehaviour
             }
         }
 
-        capacity = capacity > 16 ? capacity : 16;
+        capacity = capacity > minCapacity ? capacity : minCapacity;
         int side = (int)Mathf.Sqrt(capacity) + 1;
         roomSize = new Vector2Int(side, side);
     }
@@ -102,7 +105,7 @@ public class TileRoom : MonoBehaviour
                 int y = (int)Mathf.Min(transform.position.z + j, (transform.position.z + j) / 1);
 
                 Vector2Int pos = new Vector2Int(x, y);
-                if (tileMap.TryGetTile(pos, out Tile tile) && tile.HasEmptySide())
+                if (tileMap.TryGetTile(pos, out Tile tile) && tile.HasEmptySide() && tile.GetTileObject() != null)
                 {
                     List<Tile> tiles = tile.GetEmptyNeighbors();
                     foreach (Tile item in tiles)
@@ -152,9 +155,9 @@ public class TileRoom : MonoBehaviour
             }
         }
 
-        /*for (int i = 0; i < roomSize.x; i++)
+/*        for (int i = 0; i < roomSize.x; i++)
         {
-            if(i < (int)(roomSize.x / 2))
+            if (i < (int)(roomSize.x / 2))
             {
                 for (int j = 0; j < roomSize.y; j++)
                 {

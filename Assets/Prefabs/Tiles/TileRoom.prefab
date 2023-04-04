@@ -69,10 +69,8 @@ MonoBehaviour:
   - room
   - wall
   rayPos: []
-  minRoomHeight: 5
-  maxRoomHeight: 7
-  maxRoomWidth: 7
-  mixRoomWidth: 5
+  hits: []
   layerMask:
     serializedVersion: 2
     m_Bits: 1
+  minCapacity: 64

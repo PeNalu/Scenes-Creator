@@ -27,8 +27,10 @@ public class NLPParser : MonoBehaviour
     private List<TextEntity> textEntities;
     private List<string> interactiveEntity;
     private List<string> grabbableEntity;
+
     private string lastEntity = "";
     private string lastPosition = "";
+    private string lastNumeral = "";
 
     public List<TextEntity> Parse(string text)
     {
@@ -54,6 +56,12 @@ public class NLPParser : MonoBehaviour
                 lastPosition = parse.Head.ToString();
             }
 
+            if(parse.Type == "CD")
+            {
+                print("CD");
+                lastNumeral = parse.Head.ToString();
+            }
+
             if (parse.Type == "NN")
             {
                 if (positionKeys.Contains(parse.Head.ToString())) continue;
@@ -63,6 +71,13 @@ public class NLPParser : MonoBehaviour
                     TextEntity entity = GetEntity(lastEntity);
                     entity.parentObj = parse.Head.ToString();
                     entity.position = lastPosition;
+
+                    if (!string.IsNullOrEmpty(lastNumeral))
+                    {
+                        entity.count = int.Parse(lastNumeral);
+                        lastNumeral = "";
+                    }
+
                     lastEntity = null;
                     lastPosition = null;
                 }
