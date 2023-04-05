@@ -56,9 +56,8 @@ public class NLPParser : MonoBehaviour
                 lastPosition = parse.Head.ToString();
             }
 
-            if(parse.Type == "CD")
+            if (parse.Type == "CD" || parse.Type == "LS")
             {
-                print("CD");
                 lastNumeral = parse.Head.ToString();
             }
 

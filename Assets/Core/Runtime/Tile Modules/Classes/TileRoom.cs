@@ -231,54 +231,65 @@ public class TileRoom : MonoBehaviour
     {
         foreach (TextEntity tEntity in roomData.textEntities)
         {
-            if (stopEntities.Contains(tEntity.name)) continue;
+            for (int i = 0; i < tEntity.count; i++)
+            {
+                if (stopEntities.Contains(tEntity.name)) continue;
 
-            List<Entity> tmp = templates.Where(x => x.name == tEntity.name).ToList();
-            Entity template = tmp[Random.Range(0, tmp.Count)];
-            Entity entity = Instantiate(template);
-            entity.transform.SetParent(transform);
-            entity.SetTextEntity(tEntity);
-            entity.name = tEntity.name.ToLower();
-            entities.Add(entity);
+                List<Entity> tmp = templates.Where(x => x.name == tEntity.name).ToList();
+                Entity template = tmp[Random.Range(0, tmp.Count)];
+                Entity entity = Instantiate(template);
+                entity.transform.SetParent(transform);
+                entity.SetTextEntity(tEntity);
+                entity.name = tEntity.name.ToLower();
+                entities.Add(entity);
+            }
         }
 
         foreach (TextEntity textEntity in roomData.textEntities)
         {
-            if (stopEntities.Contains(textEntity.name)) continue;
-            if (!string.IsNullOrEmpty(textEntity.parentObj))
+            TextEntity t = textEntity;
+            for (int i = 0; i < textEntity.count; i++)
             {
-                if (entities.Any(x => x.name.ToLower() == textEntity.parentObj.ToLower()))
+                if (stopEntities.Contains(textEntity.name)) continue;
+                if (!string.IsNullOrEmpty(textEntity.parentObj))
                 {
-                    Entity a = entities.Where(x => x.name == textEntity.name).FirstOrDefault();
-                    List<Entity> parentEntities = entities.Where(x => x.name.ToLower() == textEntity.parentObj).ToList();
-                    Entity b = parentEntities[Random.Range(0, parentEntities.Count)];
-                    EntityZone2 zone2 = b.GetZoneByTag(textEntity.position);
-
-                    Vector2Int parentPos = zone2.GetRandomPosition(tileMap, a.GetSize());
-                    Vector3 targetPos = new Vector3(parentPos.x - 0.5f, tileMap.transform.position.y, parentPos.y - 0.5f);
-                    if (textEntity.position == "on")
+                    if (entities.Any(x => x.name.ToLower() == textEntity.parentObj.ToLower()))
                     {
-                        Vector3 origin = new Vector3(parentPos.x, tileMap.transform.position.y + 5f, parentPos.y);
-                        Ray ray = new Ray(origin, Vector3.down);
-                        rayPos.Add(origin);
-                        if (Physics.Raycast(ray, out RaycastHit hitInfo, 10f))
+                        //Entity a = entities.Where(x => x.name == textEntity.name).FirstOrDefault();
+
+                        List<Entity> objects = entities.Where(x => x.name == textEntity.name).ToList();
+                        Entity a = objects[i];
+
+                        List<Entity> parentEntities = entities.Where(x => x.name.ToLower() == textEntity.parentObj).ToList();
+                        Entity b = parentEntities[Random.Range(0, parentEntities.Count)];
+                        EntityZone2 zone2 = b.GetZoneByTag(textEntity.position);
+
+                        Vector2Int parentPos = zone2.GetRandomPosition(tileMap, a.GetSize());
+                        Vector3 targetPos = new Vector3(parentPos.x - 0.5f, tileMap.transform.position.y, parentPos.y - 0.5f);
+                        if (textEntity.position == "on")
                         {
-                            targetPos = new Vector3(targetPos.x, hitInfo.point.y, targetPos.z);
-                            hits.Add(hitInfo.point);
+                            Vector3 origin = new Vector3(parentPos.x, tileMap.transform.position.y + 5f, parentPos.y);
+                            Ray ray = new Ray(origin, Vector3.down);
+                            rayPos.Add(origin);
+                            if (Physics.Raycast(ray, out RaycastHit hitInfo, 10f))
+                            {
+                                targetPos = new Vector3(targetPos.x, hitInfo.point.y, targetPos.z);
+                                hits.Add(hitInfo.point);
+                            }
                         }
+
+                        a.transform.position = targetPos;
+                        a.CalculateTiles(tileMap, parentPos);
+                        a.CalculateZones(tileMap, this);
+
+                        List<Vector2Int> vectors = a.GetTiles();
+                        foreach (Vector2Int item in vectors)
+                        {
+                            tileMap.GetTile(item).SetTileContent(a.gameObject);
+                        }
+
+                        yield return null;
                     }
-
-                    a.transform.position = targetPos;
-                    a.CalculateTiles(tileMap, parentPos);
-                    a.CalculateZones(tileMap, this);
-
-                    List<Vector2Int> vectors = a.GetTiles();
-                    foreach (Vector2Int item in vectors)
-                    {
-                        tileMap.GetTile(item).SetTileContent(a.gameObject);
-                    }
-
-                    yield return null;
                 }
             }
         }
