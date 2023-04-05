@@ -172,48 +172,72 @@ public class EntityZone2
 {
     public string position;
     public List<Vector2Int> positions;
+    public List<Vector2Int> occupiedPositions = new List<Vector2Int>();
 
-    public Vector2Int GetRandomPosition(TileMap tileMap, Vector2Int size)
+    public Vector2Int GetRandomPosition(TileMap tileMap, Vector2Int size, bool flag)
     {
-        List<Vector2Int> validTiles = GetValidTiles(tileMap, size);
+        List<Vector2Int> validTiles = GetValidTiles(tileMap, size, flag);
 
         if (validTiles.Count == 0) return Vector2Int.zero;
         return validTiles[Random.Range(0, validTiles.Count)];
     }
 
-    public bool HasSpace(TileMap tileMap, Vector2Int size)
+    public bool HasSpace(TileMap tileMap, Vector2Int size, bool flag)
     {
-        List<Vector2Int> validTiles = GetValidTiles(tileMap, size);
+        List<Vector2Int> validTiles = GetValidTiles(tileMap, size, flag);
         return validTiles.Count > 0;
     }
 
-    public List<Vector2Int> GetValidTiles(TileMap tileMap, Vector2Int size)
+    public bool HasSpace()
+    {
+        return occupiedPositions.Count < positions.Count;
+    }
+
+    public void Occupied(List<Vector2Int> vectors)
+    {
+        for (int i = 0; i < vectors.Count; i++)
+        {
+            Occupied(vectors[i]);
+        }
+    }
+
+    public void Occupied(Vector2Int vector)
+    {
+        occupiedPositions.Add(vector);
+    }
+
+    public List<Vector2Int> GetValidTiles(TileMap tileMap, Vector2Int size, bool flag)
     {
         List<Vector2Int> result = new List<Vector2Int>();
         foreach (Vector2Int tile in positions)
         {
-            if(HasObstacle(tileMap, size, tile))
+            if(HasObstacle(tileMap, size, tile, flag) || occupiedPositions.Contains(tile))
             {
                 continue;
             }
+
             result.Add(tile);
         }
 
         return result;
     }
 
-    private bool HasObstacle(TileMap tileMap, Vector2Int size, Vector2Int tile)
+    private bool HasObstacle(TileMap tileMap, Vector2Int size, Vector2Int tile, bool flag)
     {
         for (int x = 0; x < size.x; x++)
         {
             for (int y = 0; y < size.y; y++)
             {
                 Vector2Int newPos = new Vector2Int(tile.x + x, tile.y + y);
-                if (!tileMap.TryGetTile(newPos, out Tile t) 
-                    || t.GetTileType() != TileType.Floor 
-                    || t.HasNeighborsType(TileType.Door) 
+                if (!tileMap.TryGetTile(newPos, out Tile t)
+                    || t.GetTileType() != TileType.Floor
+                    || t.HasNeighborsType(TileType.Door)
                     || t.GetTileContent() != null)
                 {
+                    if (flag && t.GetTileContent() != null)
+                    {
+                        continue;
+                    }
                     return true;
                 }
             }

@@ -1,4 +1,4 @@
-This is a kitchen. There is a 5 table against the wall. There is a 3 chair next to the table. There is a 3 torch on the table. There is a 7 vase somewhere in the room.
+This is a kitchen. There is a 5 table against the wall. There is a 3 chair next to the table. There is a 5 torch on the table. There is a 7 vase somewhere in the room.
 
 This is a living room. There is a table against the wall. There is a chair next to the table. There is a book on the table. There is a candle on the table. There is a bookshelf on the wall. There is a key on the bookshelf. There is a piano somewhere in the room. 
 

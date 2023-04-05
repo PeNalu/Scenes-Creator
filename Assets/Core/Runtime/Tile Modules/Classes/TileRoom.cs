@@ -248,8 +248,14 @@ public class TileRoom : MonoBehaviour
         foreach (TextEntity textEntity in roomData.textEntities)
         {
             TextEntity t = textEntity;
+            List<Entity> ent = new List<Entity>(); 
             for (int i = 0; i < textEntity.count; i++)
             {
+                if(textEntity.count == 2)
+                {
+                    print(111);
+                }
+
                 if (stopEntities.Contains(textEntity.name)) continue;
                 if (!string.IsNullOrEmpty(textEntity.parentObj))
                 {
@@ -264,7 +270,19 @@ public class TileRoom : MonoBehaviour
                         Entity b = parentEntities[Random.Range(0, parentEntities.Count)];
                         EntityZone2 zone2 = b.GetZoneByTag(textEntity.position);
 
-                        Vector2Int parentPos = zone2.GetRandomPosition(tileMap, a.GetSize());
+                        if (!zone2.HasSpace()) continue;
+
+                        Vector2Int parentPos;
+                        if (textEntity.position == "on")
+                        {
+                            parentPos = zone2.GetRandomPosition(tileMap, a.GetSize(), true);
+                        }
+                        else
+                        {
+                            parentPos = zone2.GetRandomPosition(tileMap, a.GetSize(), false);
+                        }
+
+                        zone2.Occupied(parentPos);
                         Vector3 targetPos = new Vector3(parentPos.x - 0.5f, tileMap.transform.position.y, parentPos.y - 0.5f);
                         if (textEntity.position == "on")
                         {
@@ -280,7 +298,10 @@ public class TileRoom : MonoBehaviour
 
                         a.transform.position = targetPos;
                         a.CalculateTiles(tileMap, parentPos);
-                        a.CalculateZones(tileMap, this);
+
+                        if (textEntity.count == 1)
+                            a.CalculateZones(tileMap, this);
+                        else ent.Add(a);
 
                         List<Vector2Int> vectors = a.GetTiles();
                         foreach (Vector2Int item in vectors)
@@ -290,6 +311,14 @@ public class TileRoom : MonoBehaviour
 
                         yield return null;
                     }
+                }
+            }
+
+            if(textEntity.count > 1)
+            {
+                for (int i = 0; i < textEntity.count; i++)
+                {
+                    ent[i].CalculateZones(tileMap, this);
                 }
             }
         }
