@@ -50,8 +50,14 @@
       "intent": "GrabbableQuery",
       "text": [
         "You can take item.",
+        "You can take the item.",
         "You can take the book.",
+        "You can take the torch.",
+        "You can grab torch.",
         "You can grab item.",
+        "You can grab the item.",
+        "You can take vase.",
+        "You can take the vase.",
         "You can take"
       ]
     }

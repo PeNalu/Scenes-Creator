@@ -25,12 +25,21 @@ public class InteractiveObjectViewer : MonoBehaviour
             currentGrabbableObject = null;
         }
 
+        if (Input.GetKeyDown(KeyCode.E) && currentGrabbableObject != null)
+        {
+            InteractiveObject interactiveObject = currentGrabbableObject.GetComponent<InteractiveObject>();
+            if(interactiveObject != null)
+            {
+                interactiveObject.Interact();
+            }
+        }
+
         if(interactive != null && Input.GetKeyDown(KeyCode.E))
         {
             interactive.Interact();
         }
 
-        if(grabbable != null && currentGrabbableObject == null && Input.GetKeyDown(KeyCode.E))
+        if(grabbable != null && currentGrabbableObject == null && Input.GetKeyDown(KeyCode.F))
         {
             currentGrabbableObject = grabbable;
             currentGrabbableObject.Grab();

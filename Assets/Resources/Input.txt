@@ -1,10 +1,10 @@
-This is a kitchen. There is a 5 table against the wall. There is a 3 chair next to the table. There is a 5 torch on the table. There is a 7 vase somewhere in the room.
+This is a kitchen. There is a 5 table against the wall. There is a 3 chair next to the table. There is a 5 torch on the table. The torch can be turned on. You can take the torch. There is a 7 vase somewhere in the room.
 
-This is a living room. There is a table against the wall. There is a chair next to the table. There is a book on the table. There is a candle on the table. There is a bookshelf on the wall. There is a key on the bookshelf. There is a piano somewhere in the room. 
+This is a living room. There is a table against the wall. There is a chair next to the table. There is a book on the table. You can take the book. There is a candle on the table. There is a bookshelf on the wall. There is a key on the bookshelf. There is a piano somewhere in the room. 
 
 This is a cabinet. There is a table against the wall. There is a chair next to the table. There is a phone on the table. There is a clock on the table. There is a board against the wall. 
 
-This is a bathroom. There is a typewriter somewhere in the room. There is a candle somewhere in the room.
+This is a bathroom. There is a alien somewhere in the room. There is a candle somewhere in the room.
 
 This is a loggia. There is a table against the wall. There is a chair next to the table. There is a torch on the table. There is a vase somewhere in the room.
 

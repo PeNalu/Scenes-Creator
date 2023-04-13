@@ -65,6 +65,7 @@ MonoBehaviour:
   - {fileID: 5406745391814904569, guid: ca3005b0e28722646804d22e9c8e6e6a, type: 3}
   - {fileID: 5406745391814904569, guid: 77c4611afda59cc42ad12eba1818abe2, type: 3}
   - {fileID: 5406745391814904569, guid: 01ba9c93db9ee8b4681a45ca3532b871, type: 3}
+  - {fileID: 438402434588264952, guid: 52d7bd9eb272dbb4ea6af126f3cd4ef7, type: 3}
   stopEntities:
   - room
   - wall
