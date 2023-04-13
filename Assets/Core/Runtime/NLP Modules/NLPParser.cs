@@ -138,7 +138,8 @@ public class NLPParser : MonoBehaviour
                                 interactiveEntity.Add(item.Head.ToString());
                             }
                         }
-                        else
+                        
+                        if (classStr == "GrabbableQuery")
                         {
                             if (!grabbableEntity.Contains(item.Head.ToString()))
                             {

@@ -43,17 +43,17 @@ public class TileObject : MonoBehaviour
 
     protected virtual void OnDrawGizmos()
     {
-/*        Vector3 pos = new Vector3((int)transform.position.x, transform.position.y, (int)transform.position.z);
+        Vector3 pos = new Vector3((int)transform.position.x, transform.position.y, (int)transform.position.z);
         Gizmos.color = Color.green;
         for (int x = 0; x < size.x; x++)
         {
             for (int y = 0; y < size.y; y++)
             {
-                Vector3 offset = new Vector3(x + 0.5f, 2.5f ,y + 0.5f);
+                Vector3 offset = new Vector3(x + 0.5f, 2.5f, y + 0.5f);
                 Vector3 cubePos = new Vector3(pos.x + offset.x, pos.y + offset.y, pos.z + offset.z);
                 Gizmos.DrawWireCube(cubePos, new Vector3(1, 5, 1));
             }
-        }*/
+        }
     }
 
     #region [Getter / Setter]

@@ -330,11 +330,13 @@ public class TileRoom : MonoBehaviour
             {
                 if (textEntity.interactable)
                 {
+                    print("interactable");
                     item.GetComponent<InteractiveObject>().IsEnable(true);
                 }
 
                 if (textEntity.grabbable)
                 {
+                    print("grabbable" + $" :{textEntity.name}");
                     item.gameObject.AddComponent<GrabbableObject>();
                 }
             }

@@ -82,6 +82,8 @@ public class NLPNaiveBayesClassifier : MonoBehaviour
         sentenceToClassify = sentence;
         Classify();
 
+        //print($"{sentence} {classifiedLabel} {highestConfidence}");
+
         if(highestConfidence < 0.9)
         {
             return "Default";
