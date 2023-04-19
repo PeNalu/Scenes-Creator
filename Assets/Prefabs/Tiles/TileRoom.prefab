@@ -69,6 +69,11 @@ MonoBehaviour:
   stopEntities:
   - room
   - wall
+  - animation
+  - interacting
+  animationStates:
+  - attack
+  - idle
   rayPos: []
   hits: []
   layerMask:

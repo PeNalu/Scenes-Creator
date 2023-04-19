@@ -4,7 +4,7 @@ This is a living room. There is a table against the wall. There is a chair next 
 
 This is a cabinet. There is a table against the wall. There is a chair next to the table. There is a phone on the table. There is a clock on the table. There is a board against the wall. 
 
-This is a bathroom. There is a alien somewhere in the room. There is a candle somewhere in the room.
+This is a bathroom. There is a alien somewhere in the room, reproduces an attack animation when interacting. There is a candle somewhere in the room.
 
 This is a loggia. There is a table against the wall. There is a chair next to the table. There is a torch on the table. There is a vase somewhere in the room.
 

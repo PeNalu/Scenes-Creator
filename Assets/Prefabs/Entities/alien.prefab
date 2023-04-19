@@ -5053,6 +5053,7 @@ GameObject:
   - component: {fileID: 438402434588264952}
   - component: {fileID: 1348809741142067112}
   - component: {fileID: 3475312659184669784}
+  - component: {fileID: 5807551353127203509}
   m_Layer: 0
   m_Name: alien
   m_TagString: Untagged
@@ -5115,10 +5116,10 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4641452092622032094}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 5807551353127203509}
+        m_TargetAssemblyTypeName: AnimateEntityController, Assembly-CSharp
+        m_MethodName: PlayInteractAnimation
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -5127,7 +5128,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  isEnable: 0
+  isEnable: 1
 --- !u!65 &3475312659184669784
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5141,6 +5142,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.9973822, y: 2.1298583, z: 4.028315}
   m_Center: {x: 0.2518916, y: 1.0649291, z: 2.5552652}
+--- !u!114 &5807551353127203509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4641452092622032094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 421fb9288ea14db49938cbeff69cf80a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 1712447667196017335}
+  interactAnimation: 
 --- !u!1 &4654892994867743748
 GameObject:
   m_ObjectHideFlags: 0

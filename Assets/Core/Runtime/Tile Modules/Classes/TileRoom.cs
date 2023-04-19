@@ -22,6 +22,12 @@ public class TileRoom : MonoBehaviour
     private List<string> stopEntities = new List<string> { "room", "wall" };
 
     [SerializeField]
+    private List<string> animationStates = new List<string> { "attack", "idle" };
+
+    [SerializeField]
+    private List<string> animateObjects = new List<string> { "alien" };
+
+    [SerializeField]
     private List<Vector3> rayPos;
 
     [SerializeField]
@@ -34,6 +40,7 @@ public class TileRoom : MonoBehaviour
     private int minCapacity = 16;
 
     //Stored required components.
+    private Entity animateEntity;
     private RoomData roomData;
     private TileMap tileMap;
     private GameObject roomObj;
@@ -235,13 +242,46 @@ public class TileRoom : MonoBehaviour
             {
                 if (stopEntities.Contains(tEntity.name)) continue;
 
-                List<Entity> tmp = templates.Where(x => x.name == tEntity.name).ToList();
-                Entity template = tmp[Random.Range(0, tmp.Count)];
-                Entity entity = Instantiate(template);
-                entity.transform.SetParent(transform);
-                entity.SetTextEntity(tEntity);
-                entity.name = tEntity.name.ToLower();
-                entities.Add(entity);
+                if (animationStates.Contains(tEntity.name))
+                {
+                    if(animateEntity != null)
+                    {
+/*                        if(animateEntity.TryGetComponent<InteractiveObject>(out InteractiveObject interactiveObject))
+                        {
+                            Animator animator = interactiveObject.GetComponentInChildren<Animator>();
+                            interactiveObject.OninteractCallback += () =>
+                            {
+                                print("Execute Animation.");
+                                animator.Play(tEntity.name);
+                            };
+                        }*/
+                        if (animateEntity.TryGetComponent<AnimateEntityController>(out AnimateEntityController animateEntityController))
+                        {
+                            animateEntityController.SetInteractAnimation(tEntity.name);
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError($"Animation state {tEntity.name} have not animate object.");
+                    }
+                    print(tEntity.name);
+                }
+                else
+                {
+                    List<Entity> tmp = templates.Where(x => x.name == tEntity.name).ToList();
+                    Entity template = tmp[Random.Range(0, tmp.Count)];
+                    Entity entity = Instantiate(template);
+
+                    if (animateObjects.Contains(tEntity.name))
+                    {
+                        animateEntity = entity;
+                    }
+
+                    entity.transform.SetParent(transform);
+                    entity.SetTextEntity(tEntity);
+                    entity.name = tEntity.name.ToLower();
+                    entities.Add(entity);
+                }
             }
         }
 
