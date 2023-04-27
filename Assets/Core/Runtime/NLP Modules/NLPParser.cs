@@ -18,7 +18,7 @@ public class NLPParser : MonoBehaviour
     private NLPSentenceSplitter sentenceSplitter;
 
     [SerializeField]
-    private List<string> positionKeys;
+    private GeneratorSettings settings;
 
     [TextArea]
     public string textToParse;
@@ -51,7 +51,7 @@ public class NLPParser : MonoBehaviour
 
         foreach (Parse parse in a)
         {
-            if (positionKeys.Contains(parse.Head.ToString()))
+            if (settings.positions.Contains(parse.Head.ToString()))
             {
                 lastPosition = parse.Head.ToString();
             }
@@ -63,7 +63,7 @@ public class NLPParser : MonoBehaviour
 
             if (parse.Type == "NN")
             {
-                if (positionKeys.Contains(parse.Head.ToString())) continue;
+                if (settings.positions.Contains(parse.Head.ToString())) continue;
 
                 if (!string.IsNullOrEmpty(lastEntity) && !string.IsNullOrEmpty(lastPosition))
                 {

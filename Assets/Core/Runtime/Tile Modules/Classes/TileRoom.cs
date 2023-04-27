@@ -7,6 +7,9 @@ using UnityEngine;
 public class TileRoom : MonoBehaviour
 {
     [SerializeField]
+    private GeneratorSettings settings;
+
+    [SerializeField]
     private GameObject floorTile;
 
     [SerializeField]
@@ -17,15 +20,6 @@ public class TileRoom : MonoBehaviour
 
     [SerializeField]
     private List<Entity> templates;
-
-    [SerializeField]
-    private List<string> stopEntities = new List<string> { "room", "wall" };
-
-    [SerializeField]
-    private List<string> animationStates = new List<string> { "attack", "idle" };
-
-    [SerializeField]
-    private List<string> animateObjects = new List<string> { "alien" };
 
     [SerializeField]
     private List<Vector3> rayPos;
@@ -240,13 +234,13 @@ public class TileRoom : MonoBehaviour
         {
             for (int i = 0; i < tEntity.count; i++)
             {
-                if (stopEntities.Contains(tEntity.name)) continue;
+                if (settings.stopEntities.Contains(tEntity.name)) continue;
 
-                if (animationStates.Contains(tEntity.name))
+                if (settings.animationStates.Contains(tEntity.name))
                 {
                     if(animateEntity != null)
                     {
-/*                        if(animateEntity.TryGetComponent<InteractiveObject>(out InteractiveObject interactiveObject))
+/*                        if (animateEntity.TryGetComponent<InteractiveObject>(out InteractiveObject interactiveObject))
                         {
                             Animator animator = interactiveObject.GetComponentInChildren<Animator>();
                             interactiveObject.OninteractCallback += () =>
@@ -272,7 +266,7 @@ public class TileRoom : MonoBehaviour
                     Entity template = tmp[Random.Range(0, tmp.Count)];
                     Entity entity = Instantiate(template);
 
-                    if (animateObjects.Contains(tEntity.name))
+                    if (settings.animateObjects.Contains(tEntity.name))
                     {
                         animateEntity = entity;
                     }
@@ -291,20 +285,12 @@ public class TileRoom : MonoBehaviour
             List<Entity> ent = new List<Entity>(); 
             for (int i = 0; i < textEntity.count; i++)
             {
-                if(textEntity.count == 2)
-                {
-                    print(111);
-                }
-
-                if (stopEntities.Contains(textEntity.name)) continue;
+                if (settings.stopEntities.Contains(textEntity.name)) continue;
                 if (!string.IsNullOrEmpty(textEntity.parentObj))
                 {
                     if (entities.Any(x => x.name.ToLower() == textEntity.parentObj.ToLower()))
                     {
-                        //Entity a = entities.Where(x => x.name == textEntity.name).FirstOrDefault();
-
-                        List<Entity> objects = entities.Where(x => x.name == textEntity.name).ToList();
-                        Entity a = objects[i];
+                        Entity a = entities.Where(x => x.name == textEntity.name).ToList()[i];
 
                         List<Entity> parentEntities = entities.Where(x => x.name.ToLower() == textEntity.parentObj).ToList();
                         Entity b = parentEntities[Random.Range(0, parentEntities.Count)];
@@ -312,15 +298,9 @@ public class TileRoom : MonoBehaviour
 
                         if (!zone2.HasSpace()) continue;
 
-                        Vector2Int parentPos;
-                        if (textEntity.position == "on")
-                        {
-                            parentPos = zone2.GetRandomPosition(tileMap, a.GetSize(), true);
-                        }
-                        else
-                        {
-                            parentPos = zone2.GetRandomPosition(tileMap, a.GetSize(), false);
-                        }
+                        Vector2Int parentPos = textEntity.position == "on" 
+                            ? zone2.GetRandomPosition(tileMap, a.GetSize(), true) 
+                            : zone2.GetRandomPosition(tileMap, a.GetSize(), false);
 
                         zone2.Occupied(parentPos);
                         Vector3 targetPos = new Vector3(parentPos.x - 0.5f, tileMap.transform.position.y, parentPos.y - 0.5f);

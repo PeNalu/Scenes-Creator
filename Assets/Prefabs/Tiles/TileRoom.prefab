@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad2c2f0e224166c45a15ebaf9165bd87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  settings: {fileID: 11400000, guid: 26ad6a769edfb3a40bfc2581a766242b, type: 2}
   floorTile: {fileID: 338021735967105035, guid: da912cd1e5701b54f8d389da4a19243c, type: 3}
   wallTile: {fileID: 7592060522299019130, guid: f79ac6c9782399248952fdf5c0e864dc, type: 3}
   doorTile: {fileID: 7592060522299019130, guid: b260a06cd1a83344a838c7da1240a4f2, type: 3}
@@ -66,14 +67,6 @@ MonoBehaviour:
   - {fileID: 5406745391814904569, guid: 77c4611afda59cc42ad12eba1818abe2, type: 3}
   - {fileID: 5406745391814904569, guid: 01ba9c93db9ee8b4681a45ca3532b871, type: 3}
   - {fileID: 438402434588264952, guid: 52d7bd9eb272dbb4ea6af126f3cd4ef7, type: 3}
-  stopEntities:
-  - room
-  - wall
-  - animation
-  - interacting
-  animationStates:
-  - attack
-  - idle
   rayPos: []
   hits: []
   layerMask:

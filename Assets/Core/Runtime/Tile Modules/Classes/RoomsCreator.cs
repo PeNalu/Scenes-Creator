@@ -103,14 +103,8 @@ public class RoomsCreator : MonoBehaviour
         foreach (TileRoom tileRoom in tileRooms)
         {
             tileRoom.InitializeRoomEntities();
-        }
-
-        foreach (TileRoom tileRoom in tileRooms)
-        {
             StartCoroutine(tileRoom.SetUpEntities());
-            //tileRoom.SetUpEntities();
         }
-        print("End Create Room Entities");
     }
 
     public void MakeHallway(Tile start, Tile target, Transform parent = null)

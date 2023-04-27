@@ -10,10 +10,13 @@ public partial class ApartmentGenerator : MonoBehaviour
     private TextAsset textAsset;
 
     [SerializeField]
+    private GeneratorSettings settings;
+
+/*    [SerializeField]
     private List<string> roomName;
 
     [SerializeField]
-    private List<string> connectedMark;
+    private List<string> connectedMark;*/
 
     [SerializeField]
     private NLPSentenceSplitter sentenceSplitter;
@@ -53,8 +56,38 @@ public partial class ApartmentGenerator : MonoBehaviour
 
         FindRooms(sentences, roomDescriptions);
         SetUpRooms(roomDescriptions);
-        ConfigurateRoomsPosition();
+        ConfigurateRoomsPosition(true);
 
+        roomsCreator.Clear();
+        foreach (TileRoom item in tileRooms)
+        {
+            roomsCreator.AddRoom(item);
+        }
+        roomsCreator.StartCreate(transform);
+
+        foreach (Tile door in roomsCreator.GetDoors())
+        {
+            DoorController doorController = door.GetTileObject().GetComponent<DoorController>();
+            doorController.Initialize(tileMap, door.GetPosition());
+        }
+    }
+
+    public void ReGenerate()
+    {
+        for (int i = transform.childCount - 1; i >= 0; i--)
+        {
+            Transform transformChild = transform.GetChild(i);
+            DestroyImmediate(transformChild.gameObject);
+        }
+
+        tileMap.Initialize();
+        tileRooms.Clear();
+        roomsCreator.Initialize();
+        createdRooms = new List<string>();
+        roomsMap = new Dictionary<Vector2Int, TileRoom>();
+
+        SetUpRooms(roomDatas.Values.ToList());
+        ConfigurateRoomsPosition(false);
         roomsCreator.Clear();
         foreach (TileRoom item in tileRooms)
         {
@@ -80,12 +113,15 @@ public partial class ApartmentGenerator : MonoBehaviour
         roomNames = new List<string>();
     }
 
-    private void ConfigurateRoomsPosition()
+    private void ConfigurateRoomsPosition(bool flag)
     {
-        foreach (RoomConnectorData connectorData in roomConnecters)
+        if (flag)
         {
-            roomDatas[connectorData.FirstRoomName].connections.Add(connectorData.SecondRoomName, connectorData.ConnectionMethod);
-            roomDatas[connectorData.SecondRoomName].connections.Add(connectorData.FirstRoomName, connectorData.ConnectionMethod);
+            foreach (RoomConnectorData connectorData in roomConnecters)
+            {
+                roomDatas[connectorData.FirstRoomName].connections.Add(connectorData.SecondRoomName, connectorData.ConnectionMethod);
+                roomDatas[connectorData.SecondRoomName].connections.Add(connectorData.FirstRoomName, connectorData.ConnectionMethod);
+            }
         }
 
         RoomData firstRoom = roomDatas.First().Value;
@@ -175,6 +211,17 @@ public partial class ApartmentGenerator : MonoBehaviour
         }
     }
 
+    private void SetUpRooms(List<RoomData> roomDatas)
+    {
+        for (int i = 0; i < roomDatas.Count; i++)
+        {
+            RoomGenerator roomGenerator = Instantiate(roomGeneratorTemplate, transform.position, Quaternion.identity);
+            roomGenerator.name = "room";
+            roomGenerator.Initialize(parser, roomNames[i]);
+            roomGenerator.transform.SetParent(transform);
+        }
+    }
+
     private void FindRooms(string[] sentences, List<string> roomDescriptions)
     {
         StringBuilder description = new StringBuilder();
@@ -183,7 +230,7 @@ public partial class ApartmentGenerator : MonoBehaviour
             if (!HasConnected(sentance))
             {
                 flag = true;
-                foreach (string room in roomName)
+                foreach (string room in settings.roomsName)
                 {
                     if (sentance.Contains(room))
                     {
@@ -263,7 +310,7 @@ public partial class ApartmentGenerator : MonoBehaviour
     {
         sentance = sentance.ToLower();
         RoomConnectorData roomConnecter = new RoomConnectorData();
-        foreach (string mark in connectedMark)
+        foreach (string mark in settings.connectedMark)
         {
             if (sentance.Contains(mark))
             {
@@ -281,7 +328,7 @@ public partial class ApartmentGenerator : MonoBehaviour
         int i1 = 0;
         int i2 = 0;
         List<string> rooms = new List<string>();
-        foreach (string name in roomName)
+        foreach (string name in settings.roomsName)
         {
             if (sentance.Contains(name))
             {
@@ -307,4 +354,11 @@ public partial class ApartmentGenerator : MonoBehaviour
         roomConnecters.Add(roomConnecter);
         return true;
     }
+
+    #region [Getter / Setter]
+    public List<RoomData> GetRoomDatas()
+    {
+        return roomDatas.Values.ToList();
+    }
+    #endregion
 }
